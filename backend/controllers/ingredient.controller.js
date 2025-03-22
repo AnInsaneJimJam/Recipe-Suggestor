@@ -15,7 +15,7 @@ export const getIngredients = async(req , res) => {
 export const createIngredient = async(req,res) => {
     const ingredient = req.body;
 
-    if(!ingredient.name || !ingredient.ingredients.length() || !ingredient.procedure || !ingredient.image ){
+    if(!ingredient.name || !ingredient.image ){
         return res.status(400).json({success: false, message: "Please provide all fields"})
     }
     
