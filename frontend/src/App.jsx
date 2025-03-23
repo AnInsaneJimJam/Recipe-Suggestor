@@ -6,13 +6,13 @@ function App() {
 	return (
 		<>
 			<NavBar />
-			{/* <main className="main-content">
-				<Routes>
+			<main className="main-content">
+				{/* <Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/ingredients" element={<Ingredients />} />
 					<Route path="/recipes" element={<Recipes />} />
-				</Routes>
-			</main> */}
+				</Routes> */}
+			</main>
 		</>
 	);
 }
