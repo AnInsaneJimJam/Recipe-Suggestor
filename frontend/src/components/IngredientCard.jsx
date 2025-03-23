@@ -16,11 +16,10 @@ function IngredientCard({ ingredient }) {
 				</div>
 			</div>
 			<div className="movie-info">
-				<h3>{movie.title}</h3>
-				<p>{movie.release_date?.split("-")[0]}</p>
+				<h3>{ingredient.title}</h3>
 			</div>
 		</div>
 	);
 }
 
-export default MovieCard;
+export default IngredientCard;
