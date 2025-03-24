@@ -13,7 +13,7 @@ function Ingredients() {
 	];
 
 	return (
-		<div className="p-4">
+		<div className="p-4 ">
 			<div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-8 gap-6">
 				{ingredients.map((ingredient) => (
 					<IngredientCard
