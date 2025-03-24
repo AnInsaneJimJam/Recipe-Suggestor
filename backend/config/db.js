@@ -10,3 +10,5 @@ export const connectDB = async () => {
         process.exit(1); // 1 code means failure, 0 means success
     }
 }
+
+// Done
