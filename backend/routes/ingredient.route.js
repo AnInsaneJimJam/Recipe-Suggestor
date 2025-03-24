@@ -1,12 +1,17 @@
-import express, { Router } from "express" ;
-import { createIngredient, deleteIngredient, getIngredients, updateIngredient } from "../controllers/ingredient.controller";
+import express, { Router } from "express";
+import {
+	createIngredient,
+	deleteIngredient,
+	getIngredients,
+	updateIngredient,
+} from "../controllers/ingredient.controller.js";
 
-const ingredientRouter = express.Router();
+const router = express.Router();
 
-Router.get("/", getIngredients);
+router.get("/", getIngredients);
 // For Admin control now, may turn to feature later
-Router.post("/", createIngredient);
-Router.delete("/:id", deleteIngredient);
-Router.put("/:id", updateIngredient);
+router.post("/", createIngredient);
+router.delete("/:id", deleteIngredient);
+router.put("/:id", updateIngredient);
 
-export default ingredientRouter;
+export default router;
