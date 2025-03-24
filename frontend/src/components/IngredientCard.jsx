@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 
+//commenting full code again because I am loosing my sanity
+
 function IngredientCard({ ingredient }) {
+	// false state initially
 	const [isSelected, setIsSelected] = useState(false);
 
 	const handleSelectClick = () => {
-		setIsSelected(!isSelected); // Toggle selected state
+		setIsSelected(!isSelected); // f-->t, t-->f
 	};
 
 	return (
@@ -21,6 +24,7 @@ function IngredientCard({ ingredient }) {
 					className="w-full h-16 object-cover"
 				/>
 
+				{/* Shortcircuiting, svg taken from internet */}
 				{isSelected && (
 					<div className="absolute top-2 right-2 bg-white rounded-full p-1">
 						<svg
@@ -50,3 +54,5 @@ function IngredientCard({ ingredient }) {
 }
 
 export default IngredientCard;
+
+// Perfect Design, Have to handle selected logic to global state.
