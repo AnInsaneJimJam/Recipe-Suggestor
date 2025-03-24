@@ -19,7 +19,7 @@ function IngredientCard({ ingredient }) {
 		>
 			<div className="relative">
 				<img
-					src={ingredient.url}
+					src={ingredient.image}
 					alt={ingredient.title}
 					className="w-full h-16 object-cover"
 				/>
