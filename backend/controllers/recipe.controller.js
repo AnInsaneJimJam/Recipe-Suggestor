@@ -29,7 +29,7 @@ export const createRecipe = async (req, res) => {
 
 	if (
 		!recipe.name ||
-		!recipe.ingredients.length() ||
+		!recipe.ingredients.length ||
 		!recipe.procedure ||
 		!recipe.image
 	) {
