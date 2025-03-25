@@ -33,8 +33,7 @@ const Home = () => {
 		fetchRecipes();
 	}, [selectedIngredient]);
 
-	console.log(matchingRecipes);
-	
+
 	if (selectedIngredient.length === 0) {
 		return (
 			<div className="min-h-screen bg-gray-200 p-6">
