@@ -1,21 +1,28 @@
-import React, { useState } from "react";
-
-//commenting full code again because I am loosing my sanity
+import React from "react";
+import { useIngredientContext } from "../contexts/IngredientContext";
 
 function IngredientCard({ ingredient }) {
-	// false state initially
-	const [isSelected, setIsSelected] = useState(false);
+	const { addToSelected, isSelected, removeFromSelected } =
+		useIngredientContext();
+	const selected = isSelected(ingredient.id);
 
-	const handleSelectClick = () => {
-		setIsSelected(!isSelected); // f-->t, t-->f
-	};
+	function onSelectClick(e) {
+		e.preventDefault();
+		if (selected) removeFromSelected(ingredient.id);
+		else
+			addToSelected({
+				id: ingredient.id,
+				title: ingredient.title,
+				image: ingredient.image,
+			});
+	}
 
 	return (
 		<div
 			className={`bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg ${
-				isSelected ? "bg-blue-50 border-2 border-blue-500" : ""
+				selected ? "bg-blue-50 border-2 border-blue-500" : ""
 			}`}
-			onClick={handleSelectClick}
+			onClick={onSelectClick}
 		>
 			<div className="relative">
 				<img
@@ -23,9 +30,7 @@ function IngredientCard({ ingredient }) {
 					alt={ingredient.title}
 					className="w-full h-16 object-cover"
 				/>
-
-				{/* Shortcircuiting, svg taken from internet */}
-				{isSelected && (
+				{selected && (
 					<div className="absolute top-2 right-2 bg-white rounded-full p-1">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -54,5 +59,3 @@ function IngredientCard({ ingredient }) {
 }
 
 export default IngredientCard;
-
-// Perfect Design, Have to handle selected logic to global state.
