@@ -1,4 +1,3 @@
-import axios from "axios";
 
 export const fetchAllRecipes = async () => {
 	try {
@@ -26,10 +25,22 @@ export const fetchRecipesByIngredients = async (selectedIngredients) => {
 	try {
 		const ingredientIds = selectedIngredients.map((ing) => ing.id);
 
-		const response = await axios.post(`api/recipes/filter`, {
-			ingredients: ingredientIds,
+		const response = await fetch("/api/recipes/filter", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				ingredients: ingredientIds,
+			}),
 		});
-		return response.data;
+
+		if (!response.ok) {
+			throw new Error("Network response was not ok");
+		}
+
+
+		return await response.json();
 	} catch (error) {
 		console.error("Error filtering recipes:", error);
 		throw error;

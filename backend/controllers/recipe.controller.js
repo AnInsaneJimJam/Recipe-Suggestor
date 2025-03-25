@@ -14,13 +14,31 @@ export const getRecipes = async (req, res) => {
 export const filterRecipes = async (req, res) => {
 	try {
 		const { ingredients } = req.body;
-		const recipes = await Recipe.find({
-			ingredients: { $all: ingredients },
-		}).populate("ingredients");
-		res.json(recipes);
+
+		const allRecipes = await Recipe.find().populate("ingredients");
+
+		//check for subset
+		const matchingRecipes = allRecipes.filter((recipe) => {
+			const recipeIngredientIds = recipe.ingredients.map((ing) =>
+				ing._id.toString()
+			);
+			return recipeIngredientIds.every((ingId) =>
+				ingredients.includes(ingId)
+			);
+		});
+
+		res.json({
+			success: true,
+			count: matchingRecipes.length,
+			data: matchingRecipes,
+		});
 	} catch (error) {
-		console.error("error in Filtering Recipes:", error.message);
-		res.status(500).json({ success: false, message: "Server Error" });
+		console.error("Error filtering recipes:", error.message);
+		res.status(500).json({
+			success: false,
+			message: "Server Error",
+			error: error.message,
+		});
 	}
 };
 
