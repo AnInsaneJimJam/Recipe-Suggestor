@@ -7,19 +7,19 @@ function RecipeCard({ recipe }) {
 	return (
 		<div
 			className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
-			onClick={() => navigate(`/recipes/${recipe.id}`)} // Have to figure this out
+			onClick={() => navigate(`/recipes/${recipe._id}`)} // Have to figure this out --> Future feature
 		>
 			<div className="aspect-w-4 aspect-h-3 bg-gray-100">
 				<img
 					src={recipe.image}
-					alt={recipe.title}
+					alt={recipe.name}
 					className="object-cover w-full h-full"
 				/>
 			</div>
 
 			<div className="p-4">
 				<h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
-					{recipe.title}
+					{recipe.name}
 				</h3>
 			</div>
 		</div>

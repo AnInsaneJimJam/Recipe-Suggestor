@@ -1,49 +1,95 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import RecipeCard from "../components/RecipeCard";
+import { fetchAllRecipes } from "../services/api";
 
-// Mock data - replace with your actual data fetching
-const mockRecipes = [
-	{
-		id: "1",
-		title: "Classic Margherita Pizza",
-		image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002",
-		ingredients: [
-			{ id: "101", name: "Pizza dough" },
-			{ id: "102", name: "Tomato sauce" },
-			{ id: "103", name: "Fresh mozzarella" },
-			{ id: "104", name: "Basil leaves" },
-		],
-		procedure:
-			"1. Preheat oven to 475°F (245°C)...\n2. Roll out the dough...\n3. Add toppings...",
-	},
-	{
-		id: "2",
-		title: "Vegetable Stir Fry",
-		image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
-		ingredients: [
-			{ id: "201", name: "Broccoli" },
-			{ id: "202", name: "Bell peppers" },
-			{ id: "203", name: "Carrots" },
-			{ id: "204", name: "Soy sauce" },
-		],
-		procedure:
-			"1. Chop all vegetables...\n2. Heat oil in wok...\n3. Stir fry vegetables...",
-	},
-];
+function Recipes() {
+	const [recipes, setRecipes] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
-function RecipeList() {
+	useEffect(() => {
+		const loadRecipes = async () => {
+			try {
+				const response = await fetchAllRecipes();
+				
+				//Ai helped in error handling
+				const recipesData = Array.isArray(response)
+					? response
+					: response?.success
+					? response.data
+					: [];
+
+				if (!Array.isArray(recipesData)) {
+					throw new Error("Invalid recipes data format");
+				}
+
+				setRecipes(recipesData);
+			} catch (err) {
+				setError(err.message);
+				console.error("Recipe fetch error:", err);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		loadRecipes();
+	}, []);
+
+	if (loading) {
+		return (
+			<div className="container mx-auto px-4 py-8 text-center">
+				<div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+				<p className="mt-2 text-gray-600">Loading recipes...</p>
+			</div>
+		);
+	}
+
+	if (error) {
+		return (
+			<div className="container mx-auto px-4 py-8 text-center">
+				<p className="text-red-500">Error loading recipes</p>
+				<p className="text-sm text-gray-600 mt-2">{error}</p>
+				<button
+					onClick={() => window.location.reload()}
+					className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+				>
+					Retry
+				</button>
+			</div>
+		);
+	}
+
+	if (recipes.length === 0) {
+		return (
+			<div className="container mx-auto px-4 py-8 text-center">
+				<p className="text-gray-500">No recipes found</p>
+			</div>
+		);
+	}
+
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<h1 className="text-3xl font-bold mb-8 text-center">My Recipes</h1>
 
-			{/* Responsive grid layout */}
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-				{mockRecipes.map((recipe) => (
-					<RecipeCard key={recipe.id} recipe={recipe} />
+				{recipes.map((recipe) => (
+					<RecipeCard
+						key={recipe._id || recipe.id}
+						recipe={{
+							...recipe,
+							id: recipe._id || recipe.id,
+							ingredients: Array.isArray(recipe.ingredients)
+								? recipe.ingredients.map((ing) => ({
+										id: ing._id || ing.id,
+										name: ing.name || ing.title,
+								  }))
+								: [],
+						}}
+					/>
 				))}
 			</div>
 		</div>
 	);
 }
 
-export default RecipeList;
+export default Recipes;
