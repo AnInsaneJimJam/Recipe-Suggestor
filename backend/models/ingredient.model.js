@@ -1,21 +1,27 @@
-import mongoose from "mongoose";
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db.js";
 
-const ingredientSchema = new mongoose.Schema({
-    name:{
-        type: String,
-        required: true,
-        unique: true
-    },
-    image:{
-        type: String,
-        required: true
-    }
-},{
-    timestamps: true
+const Ingredient = sequelize.define("Ingredient", {
+	id: {
+		type: DataTypes.INTEGER,
+		autoIncrement: true,
+		primaryKey: true,
+	},
+	name: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		unique: true,
+		validate: {
+			notEmpty: true,
+		},
+	},
+	image: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true,
+		},
+	},
 });
 
-const Ingredient = mongoose.model('Ingredient', ingredientSchema);
-
 export default Ingredient;
-
-//Done
