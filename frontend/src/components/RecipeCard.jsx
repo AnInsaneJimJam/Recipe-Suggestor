@@ -7,7 +7,7 @@ function RecipeCard({ recipe }) {
 	return (
 		<div
 			className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
-			onClick={() => navigate(`/recipes/${recipe._id}`)} // Have to figure this out --> Future feature
+			onClick={() => navigate(`/recipes/${recipe.id}`)} // Have to figure this out --> Future feature
 		>
 			<div className="aspect-w-4 aspect-h-3 bg-gray-100">
 				<img

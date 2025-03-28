@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import ingredientRouter from "./routes/ingredient.route.js";
 import recipeRouter from "./routes/recipe.route.js";
+import authRouter from "./routes/auth.route.js";
 
 dotenv.config();
 
@@ -14,10 +15,11 @@ app.use(express.json());
 
 app.use("/api/ingredients", ingredientRouter);
 app.use("/api/recipes", recipeRouter);
+app.use("/auth", authRouter);
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);
-	res.status(500).json({ error: err.message }); 
+	res.status(500).json({ error: err.message });
 });
 
 app.listen(5000, () => {

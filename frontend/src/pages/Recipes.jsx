@@ -74,13 +74,13 @@ function Recipes() {
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 				{recipes.map((recipe) => (
 					<RecipeCard
-						key={recipe._id || recipe.id}
+						key={recipe.id || recipe.id}
 						recipe={{
 							...recipe,
-							id: recipe._id || recipe.id,
+							id: recipe.id || recipe.id,
 							ingredients: Array.isArray(recipe.ingredients)
 								? recipe.ingredients.map((ing) => ({
-										id: ing._id || ing.id,
+										id: ing.id || ing.id,
 										name: ing.name || ing.title,
 								  }))
 								: [],

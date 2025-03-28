@@ -7,7 +7,11 @@ import {
 	updateRecipe,
 } from "../controllers/recipe.controller.js";
 
+import { protect } from "../middleware/auth.js";
+
 const router = express.Router();
+
+router.use(protect);
 
 router.get("/", getRecipes);
 router.post("/filter", filterRecipes);

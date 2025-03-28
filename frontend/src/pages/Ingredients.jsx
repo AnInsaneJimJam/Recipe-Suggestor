@@ -58,9 +58,9 @@ function Ingredients() {
 			<div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-8 gap-4">
 				{ingredients.map((ingredient) => (
 					<IngredientCard
-						key={ingredient._id}
+						key={ingredient.id}
 						ingredient={{
-							id: ingredient._id,
+							id: ingredient.id,
 							image: ingredient.image,
 							title: ingredient.name,
 						}}
