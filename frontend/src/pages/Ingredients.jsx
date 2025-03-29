@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import IngredientCard from "../components/IngredientCard";
 import { fetchAllIngredients } from "../services/api";
 import { useIngredientContext } from "../contexts/IngredientContext";
+import { Link, Navigate } from "react-router-dom";
 
 function Ingredients() {
 	const [ingredients, setIngredients] = useState([]);
@@ -36,7 +37,7 @@ function Ingredients() {
 		);
 
 	return (
-		<div className="p-4">
+		<div className="p-4 relative">
 			{selectedIngredient.length > 0 && (
 				<div className="mb-4 p-3 bg-blue-50 rounded-lg">
 					<h3 className="font-semibold text-blue-700">
@@ -67,6 +68,14 @@ function Ingredients() {
 					/>
 				))}
 			</div>
+			{selectedIngredient.length > 0 && (
+				<Link
+					to="/"
+					className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition absolute top left-140"
+				>
+					View Recipes 
+				</Link>
+			)}
 		</div>
 	);
 }
