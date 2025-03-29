@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use("/api/ingredients", ingredientRouter);
 app.use("/api/recipes", recipeRouter);
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 
 app.use((err, req, res, next) => {
 	console.error(err.stack);
